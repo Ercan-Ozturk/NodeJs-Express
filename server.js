@@ -1,7 +1,7 @@
-import express from("express");
-import path from("path");
-import posts from("./routes/posts");
-import port from process.env.PORT || 8000;
+import express from "express";
+import path from "path";
+import posts from "./routes/posts.js";
+const port = process.env.PORT || 8000;
 
 const app = express();
 
