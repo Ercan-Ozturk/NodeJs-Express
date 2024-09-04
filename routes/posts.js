@@ -8,7 +8,7 @@ let posts = [
   { id: 4, title: "Post Four" },
 ];
 
-router.get("/api/posts", (req, res) => {
+router.get("/", (req, res) => {
   const limit = parseInt(req.query.limit);
   if (!isNaN(limit) && limit > 0) {
     return res.status(200).json(posts.slice(0, limit));
@@ -16,7 +16,7 @@ router.get("/api/posts", (req, res) => {
   res.status(200).json(posts);
 });
 
-router.get("/api/posts/:id", (req, res) => {
+router.get("/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const post = posts.find((post) => post.id === id);
   if (!post) {
@@ -24,3 +24,5 @@ router.get("/api/posts/:id", (req, res) => {
   }
   res.status(200).json(post);
 });
+
+module.exports = router;
