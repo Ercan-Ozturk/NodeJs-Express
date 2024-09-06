@@ -1,4 +1,6 @@
 import express from "express";
+import { createPost, getPost, getPosts } from "../controllers/postController";
+
 const router = express.Router();
 
 let posts = [
@@ -8,38 +10,11 @@ let posts = [
   { id: 4, title: "Post Four" },
 ];
 
-router.get("/", (req, res, next) => {
-  const limit = parseInt(req.query.limit);
-  if (!isNaN(limit) && limit > 0) {
-    return res.status(200).json(posts.slice(0, limit));
-  }
-  res.status(200).json(posts);
-});
+router.get("/", getPosts);
 
-router.get("/:id", (req, res, next) => {
-  const id = parseInt(req.params.id);
-  const post = posts.find((post) => post.id === id);
-  if (!post) {
-    const error = new Error(`Post with id of ${id} was not found`);
-    err.status = 404;
-    return next(error);
-  }
-  res.status(200).json(post);
-});
+router.get("/:id", getPost);
 
-router.post("/", (req, res, next) => {
-  const newPost = {
-    id: posts.length + 1,
-    title: req.body.title,
-  };
-  if (!newPost.title) {
-    const error = new Error(`Please include a title`);
-    err.status = 400;
-    return next(error);
-  }
-  posts.push(newPost);
-  res.status(201).json(posts);
-});
+router.post("/", createPost);
 
 router.put("/:id", (req, res, next) => {
   const id = parseInt(req.params.id);
